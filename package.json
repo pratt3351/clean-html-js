@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/j-mendez/clean-html-js#readme",
   "devDependencies": {
+    "@types/sanitize-html": "^2.9.0",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^26.5.2",
     "ts-jest": "^26.4.1",
