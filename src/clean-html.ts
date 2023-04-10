@@ -1,8 +1,8 @@
 import { Readability, JSDOMParser } from "readability-node"
 import { DOMParser, XMLSerializer } from "xmldom-silent"
 import UrlParser from "url-parse"
-import sanitizeHtml from "sanitize-html"
-import { allowedTags, nonTextTags } from "./clean-html-css"
+import sanitizeHtml, {AllowedAttribute} from "sanitize-html"
+import {allowedAttributes, allowedTags, nonTextTags} from "./clean-html-css"
 import { fetchHtml } from "./fetch"
 
 export interface ReaderObject {
@@ -24,6 +24,7 @@ export interface ReaderObject {
 export interface Config {
   allowedTags?: string[]
   nonTextTags?: string[]
+  allowedAttributes?:Record<string, AllowedAttribute[]>
 }
 
 function convertHtmlToXhtml(html: string) {
@@ -100,7 +101,11 @@ async function cleanHtml(
     nonTextTags: [
       ...nonTextTags,
       ...(config?.nonTextTags ? config?.nonTextTags : [])
-    ]
+    ],
+    allowedAttributes: {
+      ...allowedAttributes,
+      ...(config?.allowedAttributes ?? {})
+    }
   })
 
   return new Promise(resolve => {

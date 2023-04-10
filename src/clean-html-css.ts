@@ -1,3 +1,5 @@
+import {AllowedAttribute} from "sanitize-html";
+
 const nonTextTags = [
   "style",
   "script",
@@ -22,4 +24,8 @@ const allowedTags = [
   "span",
 ];
 
-export { allowedTags, nonTextTags };
+const allowedAttributes:Record<string, AllowedAttribute[]> = {
+  img: [ 'src', 'srcset', 'alt', 'title', 'width', 'height', 'loading' ]
+}
+
+export { allowedTags, nonTextTags, allowedAttributes };
